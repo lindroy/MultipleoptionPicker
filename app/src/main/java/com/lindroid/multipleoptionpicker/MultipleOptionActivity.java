@@ -18,8 +18,17 @@ public class MultipleOptionActivity extends AppCompatActivity {
 
     private TextView tvTime;
 
+    /**
+     * 完整的月份数据1~12
+     */
     private List<String> monthList = new ArrayList<>();
+    /**
+     * 滚轮选择器中年份的选项数据
+     */
     private List<String> optionYears = new ArrayList<>();
+    /**
+     * 滚轮选择器中月份的选项数据
+     */
     private List<List<String>> optionMonths = new ArrayList<>();
 
 
@@ -44,6 +53,7 @@ public class MultipleOptionActivity extends AppCompatActivity {
         //月份获取到的数据是0~11，所以要加1
         int curMonth = calendar.get(Calendar.MONTH) + 1;
         for (int i = curYear + 1; i >= 1989; i--) {
+            //对应年份的月份数据集合
             List<String> tempMonths = new ArrayList<>();
             if (i == curYear + 1) {
                 //设置最新时间“至今”
@@ -84,7 +94,7 @@ public class MultipleOptionActivity extends AppCompatActivity {
                     //选中最新和最早时间时直接显示文字，不需要拼接月份
                     tvTime.setText(optionYears.get(options1));
                 } else {
-                    //
+                    //常规的时间，需要拼接年份和月份
                     tvTime.setText(new StringBuffer(optionYears.get(options1)).append("—").append(monthList.get(options2)));
                 }
             }

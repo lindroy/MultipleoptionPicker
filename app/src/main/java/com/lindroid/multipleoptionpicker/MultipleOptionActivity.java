@@ -1,6 +1,7 @@
 package com.lindroid.multipleoptionpicker;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -14,7 +15,7 @@ import java.util.List;
 /**
  * @author Lin
  */
-public class MultipleOptionActivity extends AppCompatActivity {
+public class MultipleOptionActivity extends AppCompatActivity implements OptionsPickerView.OnOptionsSelectListener {
 
     private TextView tvTime;
 
@@ -102,5 +103,42 @@ public class MultipleOptionActivity extends AppCompatActivity {
                 .build();
         multipleOp.setPicker(optionYears, optionMonths);
         multipleOp.show();
+
+       /* OptionsPickerView op = createBuilder().build();
+        op.setPicker(数据1,数据2);
+        op.show();*/
+    }
+
+    /**
+     * 设置滚轮样式
+     *
+     * @return
+     */
+    private OptionsPickerView.Builder createBuilder() {
+        OptionsPickerView.Builder builder = new OptionsPickerView.Builder(MultipleOptionActivity.this, this)
+                .setBgColor(ContextCompat.getColor(this, R.color.colorAccent))
+                .setSubmitText("确定")
+                .setCancelText("取消");
+        //下面可以继续设置样式
+        return builder;
+    }
+
+    /**
+     * 滚轮的监听事件
+     *
+     * @param options1
+     * @param options2
+     * @param options3
+     * @param v
+     */
+    @Override
+    public void onOptionsSelect(int options1, int options2, int options3, View v) {
+        switch (v.getId()) {
+            //根据所点击的控件Id来区分点击事件
+            case R.id.btn_show:
+                break;
+            default:
+                break;
+        }
     }
 }

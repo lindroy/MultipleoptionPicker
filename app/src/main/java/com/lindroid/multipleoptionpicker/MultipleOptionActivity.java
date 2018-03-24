@@ -3,6 +3,7 @@ package com.lindroid.multipleoptionpicker;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -107,6 +108,46 @@ public class MultipleOptionActivity extends AppCompatActivity implements Options
        /* OptionsPickerView op = createBuilder().build();
         op.setPicker(数据1,数据2);
         op.show();*/
+    }
+
+    /**
+     * 比較開始時候和結束時間
+     *
+     * @param startTime
+     * @param endTime
+     * @return true表示時間正確
+     */
+    public boolean compareStartEndTime(String startTime, String endTime) {
+        boolean isTimeCorrect;
+        if (TextUtils.equals("1990以前", startTime)
+                || TextUtils.equals("至今", endTime)) {
+            //开始时间是1990以前，或者结束时间是至今，则时间绝对正确
+            isTimeCorrect = true;
+        } else if (TextUtils.equals("至今", startTime)
+                && !TextUtils.equals("至今", endTime)) {
+            //开始时间是至今，而结束时间不是至今，则时间有错
+            isTimeCorrect = false;
+        } else if (!TextUtils.equals("1990以前", startTime)
+                && TextUtils.equals("1990以前", endTime)) {
+            //开始时间不是1990以前，结束时间是1990以前，则时间有错
+            isTimeCorrect = false;
+        } else {
+            String[] startTimeArray = startTime.split("\\.");
+            String[] endTimeArray = endTime.split("\\.");
+            if (startTimeArray[0].equals(endTimeArray[0])) {
+                //年份相同，比较月份
+                if (Integer.valueOf(startTimeArray[1]) <= Integer.valueOf(endTimeArray[1])) {
+                    isTimeCorrect = true;
+                } else {
+                    isTimeCorrect = false;
+                }
+            } else if (Integer.valueOf(startTimeArray[0]) < Integer.valueOf(endTimeArray[0])) {
+                isTimeCorrect = true;
+            } else {
+                isTimeCorrect = false;
+            }
+        }
+        return isTimeCorrect;
     }
 
     /**

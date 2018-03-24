@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MultipleoptionPicker</string>
+    <string name="before_nineteen_ninety">1990以前</string>
+    <string name="up_to_now">至今</string>
 </resources>
